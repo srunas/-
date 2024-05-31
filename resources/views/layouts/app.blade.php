@@ -1,35 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
-    <!-- Подключение Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Мой сайт</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/tasks/create">Создать новую задачу</a>
-                    </li>
-                    <!-- Добавьте другие пункты меню, если нужно -->
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <div class="container">
-        @yield('content')
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Styles -->
+    @livewireStyles
+</head>
+<body class="font-sans antialiased">
+    <x-banner />
+
+    <div class="min-h-screen bg-gray-100">
+        @livewire('navigation-menu')
+
+        <!-- Page Heading -->
+        @if (isset($header))
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
+        @endif
+
+        <!-- Page Content -->
+        <main>
+            <!-- Добавляем кнопки входа и выхода -->
+            <nav>
+                <ul>
+                    @guest
+                        <!-- Показывать эту часть, если пользователь не аутентифицирован -->
+                        <li><a href="{{ route('login') }}">Вход</a></li>
+                        <li><a href="{{ route('register') }}">Регистрация</a></li>
+                    @else
+                        <!-- Показывать эту часть, если пользователь аутентифицирован -->
+                        <li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Выход
+                            </a>
+                        </li>
+                    @endguest
+                </ul>
+            </nav>
+            <!-- Конец добавления кнопок входа и выхода -->
+            {{ $slot }}
+        </main>
     </div>
 
-    <!-- Подключение JavaScript для Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('modals')
+
+    @livewireScripts
 </body>
 </html>
