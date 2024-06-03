@@ -6,7 +6,7 @@
 ### В качетсве БД был использован MySQL
 
 # Чтобы запустить приложение на своей Локальной машине следуёте следующим инструкциям:
-1. В вашей Bash консоли после перехода в проект прописать git clone [https://github.com/srunas/Testovoe_zadanie_dlia_otdela_Maksa.git](https://github.com/srunas/Testovoe_zadanie_dlia_otdela_Maksa/tree/master)
+1. В вашей Bash консоли после перехода в проект прописать git clone https://github.com/srunas/Testovoe_zadanie_dlia_otdela_Maksa/tree/master
 2. cd ваш-репозиторий.
 3. composer install   # для PHP
 4. npm install       # для JavaScript
