@@ -11,7 +11,7 @@
 3. Скопируйте файл .env.example в .env и настройте необходимые переменные окружения:  cp .env.example .env
 4. Запустите Docker контейнеры: docker-compose up --build
 5. Выполните миграции и установите зависимости:
-    docker-compose exec app composer install
-    docker-compose exec app php artisan migrate
-    docker-compose exec app php artisan key:generate
+   * docker-compose exec app composer install
+   * docker-compose exec app php artisan migrate
+   * docker-compose exec app php artisan key:generate
 7. Откройте браузер и перейдите по адресу http://localhost:8000
