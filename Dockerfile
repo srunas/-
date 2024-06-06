@@ -29,5 +29,12 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
 # Копирование конфигурационного файла Apache
 COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 
-# Генерация ключа приложения
-RUN php artisan key:generate
+RUN composer install --optimize-autoloader --no-dev; \
+    php artisan key:generate --force; \
+    php artisan migrate; \
+    php artisan db:seed; \
+    php artisan cache:clear; \
+    php artisan config:cache; \
+    php artisan route:cache; \
+    php artisan storage:link; \
+    chown -R www-data:www-data /var/www;
