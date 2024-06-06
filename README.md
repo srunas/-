@@ -7,7 +7,7 @@
 
 # Чтобы запустить приложение на своей Локальной машине следуёте следующим инструкциям:
 1. В вашей Bash консоли после перехода в проект прописать git clone
-   * "https://github.com/srunas/Testovoe_zadanie_dlia_otdela_Maksa/master"
+   * "https://github.com/srunas/Testovoe_zadanie_dlia_otdela_Maksa/tree/master.git"
 3. cd ваш-репозиторий.
 4. Скопируйте файл .env.example в .env и настройте необходимые переменные окружения:
    * cp .env.example .env
